@@ -3,6 +3,7 @@
 class Stage;
 class SkyDome;
 class Player;
+class SubPlayer;
 
 class GameScene : public SceneBase
 {
@@ -37,5 +38,8 @@ private:
 
 	// プレイヤー
 	Player* player_;
+
+	// サブプレイヤー
+	SubPlayer* subPlayer_;
 
 };

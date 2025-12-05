@@ -52,6 +52,10 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Player/Hero.mv1");
 	resourcesMap_.emplace(SRC::PLAYER, res);
 
+	// サブニンゲンモデル
+	res = new RES(RES_T::MODEL, PATH_MDL + "SubPlayer/SubPlayer.mv1");
+	resourcesMap_.emplace(SRC::SUBPLAYER, res);
+
 	// プレイヤー影
 	res = new RES(RES_T::IMG, PATH_IMG + "Shadow.png");
 	resourcesMap_.emplace(SRC::PLAYER_SHADOW, res);

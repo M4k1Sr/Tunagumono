@@ -5,6 +5,7 @@
 #include "../Object/Actor/Stage.h"
 #include "../Object/Actor/SkyDome.h"
 #include "../Object/Actor/Charactor/Player.h"
+#include "../Object/Actor/Charactor/SubPlayer.h"
 #include "GameScene.h"
 
 GameScene::GameScene(void)
@@ -12,6 +13,7 @@ GameScene::GameScene(void)
 	stage_(nullptr),
 	skyDome_(nullptr),
 	player_(nullptr),
+	subPlayer_(nullptr),
 	SceneBase()
 {
 }
@@ -22,12 +24,19 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
+	// ステージ
 	stage_ = new Stage();
 	stage_->Init();
 
+	// プレイヤー
 	player_ = new Player();
 	player_->Init();
 
+	// サブプレイヤー
+	subPlayer_ = new SubPlayer();
+	subPlayer_->Init();
+
+	// スカイドーム
 	skyDome_ = new SkyDome(player_->GetTransform());
 	skyDome_->Init();
 
@@ -47,10 +56,13 @@ void GameScene::Init(void)
 
 void GameScene::Update(void)
 {
+	// ステージ更新
 	stage_->Update();
-
+	// プレイヤー更新
 	player_->Update();
-
+	// サブプレイヤー更新
+	subPlayer_->Update();
+	// スカイドーム更新
 	skyDome_->Update();
 
 	// シーン遷移
@@ -64,24 +76,33 @@ void GameScene::Update(void)
 
 void GameScene::Draw(void)
 {
-
+	// スカイドーム描画
 	skyDome_->Draw();
-
-	player_->Draw();
-
+	// ステージ描画
 	stage_->Draw();
+	// プレイヤー描画
+	player_->Draw();
+	// サブプレイヤー描画
+	subPlayer_->Draw();
 
 }
 
 void GameScene::Release(void)
 {
+	// ステージ解放
 	stage_->Release();
 	delete stage_;
 
+	// スカイドーム解放
 	skyDome_->Release();
 	delete skyDome_;
 
+	// プレイヤー解放
 	player_->Release();
 	delete skyDome_;
+
+	// サブプレイヤー解放
+	subPlayer_->Release();
+	delete subPlayer_;
 
 }
