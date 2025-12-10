@@ -555,5 +555,3 @@ void AsoUtility::DrawLineXYZ(const VECTOR& pos, const Quaternion& rot, float len
 }
 
 
-
-

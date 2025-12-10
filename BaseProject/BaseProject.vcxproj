@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Charactor\Enemy\EnemyBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\Enemy\EnemyManager.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\Enemy\EnemyRat.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderSphere.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderCapsule.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderModel.cpp" />
@@ -49,6 +52,9 @@
     <ClCompile Include="Src\Object\Actor\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Charactor\Enemy\EnemyBase.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\Enemy\EnemyManager.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\Enemy\EnemyRat.h" />
     <ClInclude Include="Src\Object\Collider\ColliderSphere.h" />
     <ClInclude Include="Src\Object\Collider\ColliderCapsule.h" />
     <ClInclude Include="Src\Object\Collider\ColliderModel.h" />
