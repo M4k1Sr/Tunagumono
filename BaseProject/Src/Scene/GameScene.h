@@ -3,6 +3,7 @@
 class Stage;
 class SkyDome;
 class Player;
+class EnemyManager;
 
 class GameScene : public SceneBase
 {
@@ -37,5 +38,9 @@ private:
 
 	// プレイヤー
 	Player* player_;
+
+	// エネミーマネージャー
+	EnemyManager* emg_;
+
 
 };
