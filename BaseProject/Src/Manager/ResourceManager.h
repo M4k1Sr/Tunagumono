@@ -19,7 +19,6 @@ public:
 		MAIN_STAGE,
 		SKY_DOME,
 		PLAYER_SHADOW,
-		ENEMY_RAT,
 	};
 
 	// 明示的にインステンスを生成する

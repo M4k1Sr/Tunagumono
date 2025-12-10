@@ -5,7 +5,6 @@
 #include "../Object/Actor/Stage.h"
 #include "../Object/Actor/SkyDome.h"
 #include "../Object/Actor/Charactor/Player.h"
-#include "../Object/Actor/Charactor/Enemy/EnemyManager.h"
 #include "GameScene.h"
 
 GameScene::GameScene(void)
@@ -32,10 +31,6 @@ void GameScene::Init(void)
 	skyDome_ = new SkyDome(player_->GetTransform());
 	skyDome_->Init();
 
-	// エネミー初期化管理
-	emg_ = new EnemyManager();
-	emg_->Init();
-
 	// ステージモデルのコライダーをプレイヤーに登録
 	const ColliderBase* stageCollider =
 		stage_->GetOwnCollider(static_cast<int>(Stage::COLLIDER_TYPE::MODEL));
@@ -57,9 +52,6 @@ void GameScene::Update(void)
 
 	skyDome_->Update();
 
-	// エネミー更新管理
-	emg_->Update();
-
 	// シーン遷移
 	auto const& ins = InputManager::GetInstance();
 	if (ins.IsTrgDown(KEY_INPUT_SPACE))
@@ -78,8 +70,6 @@ void GameScene::Draw(void)
 
 	player_->Draw();
 
-	// エネミー描画管理
-	emg_->Draw();
 }
 
 void GameScene::Release(void)
@@ -92,9 +82,5 @@ void GameScene::Release(void)
 
 	player_->Release();
 	delete skyDome_;
-
-	// エネミー解放管理
-	emg_->Release();
-	delete emg_;
 
 }
