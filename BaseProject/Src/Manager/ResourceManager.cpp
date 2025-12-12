@@ -60,9 +60,18 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/MainStage/MainStage.mv1");
 	resourcesMap_.emplace(SRC::MAIN_STAGE, res);
 
+	// サブステージモデル
+	res = new RES(RES_T::MODEL, PATH_MDL + "Stage/MainStage/SubStage.mv1");
+	resourcesMap_.emplace(SRC::SUB_STAGE, res);
+
 	// スカイドームモデル
 	res = new RES(RES_T::MODEL, PATH_MDL + "SkyDome/SkyDome.mv1");
 	resourcesMap_.emplace(SRC::SKY_DOME, res);
+
+	// ボックスモデル
+	res = new RES(RES_T::MODEL, PATH_MDL + "Object/BoxObject.mv1");
+	resourcesMap_.emplace(SRC::OBJECT_BOX, res);
+
 
 }
 

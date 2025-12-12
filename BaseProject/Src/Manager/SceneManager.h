@@ -23,7 +23,8 @@ public:
 	{
 		NONE,
 		TITLE,
-		GAME
+		GAME,
+		DEBUG,
 	};
 	
 	// インスタンスの生成

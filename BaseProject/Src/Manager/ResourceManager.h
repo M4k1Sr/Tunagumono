@@ -17,8 +17,10 @@ public:
 		ROLL_PLANET,
 		PLAYER,
 		MAIN_STAGE,
+		SUB_STAGE,
 		SKY_DOME,
 		PLAYER_SHADOW,
+		OBJECT_BOX,
 	};
 
 	// 明示的にインステンスを生成する

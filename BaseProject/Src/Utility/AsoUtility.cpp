@@ -554,4 +554,21 @@ void AsoUtility::DrawLineXYZ(const VECTOR& pos, const Quaternion& rot, float len
 
 }
 
+std::vector<std::string> AsoUtility::Split(std::string& line, char delimiter)
+{
+
+    std::istringstream stream(line);
+
+    std::string field;
+
+    std::vector<std::string> result;
+
+    while (getline(stream, field, delimiter)) {
+        result.push_back(field);
+    }
+
+    return result;
+}
+
+
 

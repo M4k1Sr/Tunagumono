@@ -233,24 +233,18 @@ void Camera::ProcessMove(void)
 
 	}
 
-	//// 移動処理
-	//if (!AsoUtility::EqualsVZero(moveDir))
-	//{
+	if (!AsoUtility::EqualsVZero(moveDir))
+	{
+		// 現在の向きからの進行方向を取得
+		VECTOR direction = VNorm(transform_.quaRot.PosAxis(moveDir));
 
-	//	// 移動させたい方向(ベクトル)に変換
+		// 移動させたい方向に移動量をかける(=移動量)
+		VECTOR movePow = VScale(direction, 5.0f);  // ← SPEEDの定数が必要
 
-	//	// 現在の向きからの進行方向を取得
-	//	VECTOR direction = VNorm(rot_.PosAxis(moveDir));
-
-	//	// 移動させたい方向に移動量をかける(=移動量)
-	//	VECTOR movePow = VScale(direction, SPEED);
-
-	//	// カメラ位置も注視点も移動させる
-	//	pos_ = VAdd(pos_, movePow);
-	//	targetPos_ = VAdd(targetPos_, movePow);
-
-	//}
-
+		// カメラ位置も注視点も移動させる
+		transform_.pos = VAdd(transform_.pos, movePow);  // ← pos_ → transform_.pos
+		targetPos_ = VAdd(targetPos_, movePow);
+	}
 }
 
 void Camera::SetBeforeDrawFixedPoint(void)

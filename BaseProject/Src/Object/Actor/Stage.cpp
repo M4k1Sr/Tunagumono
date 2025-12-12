@@ -40,7 +40,7 @@ void Stage::InitLoad(void)
 {
 	// ƒ‚ƒfƒ‹“Ç‚İ‚İ
 	transform_.SetModel(resMng_.LoadModelDuplicate(
-		ResourceManager::SRC::MAIN_STAGE));
+		ResourceManager::SRC::SUB_STAGE));
 
 }
 

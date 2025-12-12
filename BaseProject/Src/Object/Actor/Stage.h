@@ -58,7 +58,7 @@ private:
 
 	// ‘ÎÛƒtƒŒ[ƒ€
 	const std::vector<std::string> TARGET_FRAME_NAMES = {
-	"Ground",
+	"Ground","Cube",
 	};
 
 };
