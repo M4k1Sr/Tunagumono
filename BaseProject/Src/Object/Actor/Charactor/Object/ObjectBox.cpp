@@ -102,27 +102,6 @@ void ObjectBox::ChangeState(STATE state)
 	// 各状態の初期状態設定
 	ObjectBase::ChangeState(static_cast<int>(state_));
 
-
-	//state_ = state;
-	//switch (state)
-	//{
-	//case EnemyRat::STATE::NONE:
-	//	ChangeStateNone();
-	//	break;
-	//case EnemyRat::STATE::THINK:
-	//	ChangeStateThink();
-	//	break;
-	//case EnemyRat::STATE::IDLE:
-	//	ChangeStateIdle();
-	//	break;
-	//case EnemyRat::STATE::WANDER:
-	//	ChangeStateWander();
-	//	break;
-	//case EnemyRat::STATE::END:
-	//	ChangeStateEnd();
-	//	break;
-	//}
-
 }
 
 void ObjectBox::ChangeStateNone(void)
@@ -132,21 +111,6 @@ void ObjectBox::ChangeStateNone(void)
 
 void ObjectBox::ChangeStateThink(void)
 {
-	//stateUpdate_ = std::bind(&ObjectBox::UpdateThink, this);
-
-	//// 思考
-	//// ランダムに次の行動を決定
-	//// 30%で待機、70%で徘徊
-	//int rand = GetRand(100);
-
-	//if (rand < 30)
-	//{
-	//	ChangeState(STATE::IDLE);
-	//}
-	//else
-	//{
-	//	ChangeState(STATE::WANDER);
-	//}
 }
 
 void ObjectBox::ChangeStateIdle(void)
@@ -195,27 +159,10 @@ void ObjectBox::UpdateThink(void)
 
 void ObjectBox::UpdateIdle(void)
 {
-
-	//step_ -= SceneManager::GetInstance().GetDeltaTime(); // または -= 1.0f;
-
-	//if (step_ <= 0.0f)
-	//{
-	//	ChangeState(STATE::THINK);
-	//}
 }
 
 void ObjectBox::UpdateWander(void)
 {
-	//// 毎フレーム移動
-	//movePow_ = VScale(moveDir_, moveSpeed_);
-	//transform_.pos = VAdd(transform_.pos, movePow_);
-
-	//// 時間経過チェック
-	//step_ -= SceneManager::GetInstance().GetDeltaTime(); // または -= 1.0f;
-	//if (step_ <= 0.0f)
-	//{
-	//	ChangeState(STATE::THINK);
-	//}
 }
 
 void ObjectBox::UpdateEnd(void)

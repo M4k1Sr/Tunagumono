@@ -69,6 +69,7 @@ void Stage::InitCollider(void)
 		colModel->AddExcludeFrameIds(name);
 	}
 
+	// ‘ÎÛƒtƒŒ[ƒ€Ý’è
 	for (const std::string& name : TARGET_FRAME_NAMES)
 	{
 		colModel->AddTargetFrameIds(name);
