@@ -65,6 +65,16 @@ private:
 	// 衝突判定用カプセル球体半径
 	static constexpr float COL_CAPSULE_RADIUS = 20.0f;
 
+	// 除外フレーム名称
+	const std::vector<std::string> EXCLUDE_FRAME_NAMES = {
+	"Mush", "Grass",
+	};
+
+	// 対象フレーム
+	const std::vector<std::string> TARGET_FRAME_NAMES = {
+	"Ground","Cube",
+	};
+
 	// 状態
 	STATE state_;
 
