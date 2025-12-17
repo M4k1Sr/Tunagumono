@@ -10,6 +10,7 @@ public:
 	enum class TYPE
 	{
 		BOX,
+		TILE,
 	};
 
 	// オブジェクトデータ

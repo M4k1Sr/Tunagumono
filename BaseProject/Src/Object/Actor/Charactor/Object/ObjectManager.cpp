@@ -4,6 +4,8 @@
 #include "../../../../Utility/AsoUtility.h"
 #include "./ObjectBase.h"
 #include "./ObjectBox.h"
+#include "./ObjectTile.h"
+#include "./ObjectArray.h"
 #include "./ObjectManager.h"
 
 ObjectManager::ObjectManager(void)
@@ -126,6 +128,10 @@ ObjectBase* ObjectManager::Create(const ObjectBase::ObjectData& data)
 	case ObjectBase::TYPE::BOX:
 		object = new ObjectBox(data);
 		break;
+	case ObjectBase::TYPE::TILE:
+		object = new ObjectTile(data);
+		break;
+
 		// ëùÇ¶ÇÈñàÇ…í«â¡
 	}
 

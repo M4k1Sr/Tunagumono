@@ -72,6 +72,9 @@ void ResourceManager::Init(void)
 	res = new RES(RES_T::MODEL, PATH_MDL + "Object/BoxObject.mv1");
 	resourcesMap_.emplace(SRC::OBJECT_BOX, res);
 
+	// ìÆÇ≠è∞ÉÇÉfÉã
+	res = new RES(RES_T::MODEL, PATH_MDL + "Object/MoveTileObject.mv1");
+	resourcesMap_.emplace(SRC::OBJECT_TILE, res);
 
 }
 

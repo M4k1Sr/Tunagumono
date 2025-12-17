@@ -22,6 +22,7 @@
     <ClCompile Include="Src\Object\Actor\Charactor\Object\ObjectBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Object\ObjectBox.cpp" />
     <ClCompile Include="Src\Object\Actor\Charactor\Object\ObjectManager.cpp" />
+    <ClCompile Include="Src\Object\Actor\Charactor\Object\ObjectTile.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderSphere.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderCapsule.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderModel.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="Src\Object\Actor\Charactor\Object\ObjectBox.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Object\ObjectBase.h" />
     <ClInclude Include="Src\Object\Actor\Charactor\Object\ObjectManager.h" />
+    <ClInclude Include="Src\Object\Actor\Charactor\Object\ObjectTile.h" />
     <ClInclude Include="Src\Object\Collider\ColliderSphere.h" />
     <ClInclude Include="Src\Object\Collider\ColliderCapsule.h" />
     <ClInclude Include="Src\Object\Collider\ColliderModel.h" />

@@ -21,6 +21,7 @@ public:
 		SKY_DOME,
 		PLAYER_SHADOW,
 		OBJECT_BOX,
+		OBJECT_TILE,
 	};
 
 	// 明示的にインステンスを生成する

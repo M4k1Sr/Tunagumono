@@ -4,7 +4,7 @@
 #include "../CharactorBase.h"
 class AnimationController;
 
-class ObjectBox : public ObjectBase
+class ObjectTile : public ObjectBase
 {
 public:
 
@@ -16,10 +16,10 @@ public:
 	};
 
 	// コンストラクタ
-	ObjectBox(const ObjectBase::ObjectData& data);
+	ObjectTile(const ObjectBase::ObjectData& data);
 
 	// デストラクタ
-	~ObjectBox(void) override;
+	~ObjectTile(void) override;
 
 protected:
 

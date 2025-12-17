@@ -156,7 +156,8 @@ void CharactorBase::Collision(void)
 		{
 
 			// ステージ以外は処理を飛ばす
-			if (hitCol->GetTag() != ColliderBase::TAG::STAGE) continue;
+			if (hitCol->GetTag() != ColliderBase::TAG::STAGE 
+				&& hitCol->GetTag() != ColliderBase::TAG::BOX) continue;
 
 			// 派生クラスへキャスト
 			const ColliderModel* colliderModel =
