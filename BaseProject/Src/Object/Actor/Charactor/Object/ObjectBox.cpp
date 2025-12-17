@@ -71,101 +71,13 @@ void ObjectBox::InitAnimation(void)
 
 void ObjectBox::InitPost(void)
 {
-
-	// 状態遷移初期処理登録
-	stateChanges_.emplace(static_cast<int>(STATE::NONE),
-		std::bind(&ObjectBox::ChangeStateNone, this));
-
-	stateChanges_.emplace(static_cast<int>(STATE::END),
-		std::bind(&ObjectBox::ChangeStateEnd, this));
-
-	// 初期状態設定
-	ChangeState(STATE::NONE);
 }
 
 void ObjectBox::UpdateProcess(void)
 {
-
-	// 状態別更新
-	stateUpdate_();
-
-
-
 }
 
 void ObjectBox::UpdateProcessPost(void)
 {
 }
 
-void ObjectBox::ChangeState(STATE state)
-{
-	state_ = state;
-	// 各状態の初期状態設定
-	ObjectBase::ChangeState(static_cast<int>(state_));
-
-}
-
-void ObjectBox::ChangeStateNone(void)
-{
-	stateUpdate_ = std::bind(&ObjectBox::UpdateNone, this);
-}
-
-void ObjectBox::ChangeStateThink(void)
-{
-}
-
-void ObjectBox::ChangeStateIdle(void)
-{
-	stateUpdate_ = std::bind(&ObjectBox::UpdateIdle, this);
-
-	// ランダムな待機時間
-	step_ = 3.0f + static_cast<float>(GetRand(3));
-
-	// 移動量ゼロ
-	movePow_ = AsoUtility::VECTOR_ZERO;
-
-}
-
-void ObjectBox::ChangeStateWander(void)
-{
-	stateUpdate_ = std::bind(&ObjectBox::UpdateWander, this);
-
-	// ランダムな角度
-	float angle = static_cast<float>(GetRand(360)) * DX_PI_F / 180.0f;
-
-	// 移動方向
-	moveDir_ = VGet(cosf(angle), 0.0f, sinf(angle));
-
-	// ランダムな移動時間
-	step_ = 2.0f + static_cast<float>(GetRand(5));
-
-	// 移動スピード
-	moveSpeed_ = 3.0f;
-
-
-}
-
-void ObjectBox::ChangeStateEnd(void)
-{
-	stateUpdate_ = std::bind(&ObjectBox::UpdateEnd, this);
-}
-
-void ObjectBox::UpdateNone(void)
-{
-}
-
-void ObjectBox::UpdateThink(void)
-{
-}
-
-void ObjectBox::UpdateIdle(void)
-{
-}
-
-void ObjectBox::UpdateWander(void)
-{
-}
-
-void ObjectBox::UpdateEnd(void)
-{
-}
