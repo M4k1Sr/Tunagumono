@@ -131,100 +131,104 @@ void CharactorBase::Collision(void)
 
 }
 
-void CharactorBase::CollisionGravity(void)
-{
-	// 落下中しか判定しない
-	if (!(VDot(AsoUtility::DIR_D, jumpPow_) > 0.9f))
+	void CharactorBase::CollisionGravity(void)
 	{
-		return;
+		// 落下中しか判定しない
+		if (!(VDot(AsoUtility::DIR_D, jumpPow_) > 0.9f))
+		{
+			return;
+		}
+
+		// 線分コライダ
+		int lineType = static_cast<int>(COLLIDER_TYPE::LINE);
+
+		// 線分コライダが無ければ処理を抜ける
+		if (ownColliders_.count(lineType) == 0) return;
+
+		// 線分コライダ情報
+		ColliderLine* colliderLine_ =
+			dynamic_cast<ColliderLine*>(ownColliders_.at(lineType));
+
+		if (colliderLine_ == nullptr) return;
+
+		// 登録されている衝突物を全てチェック
+		for (const auto& hitCol : hitColliders_)
+		{
+
+			// ステージ以外は処理を飛ばす
+			if (hitCol->GetTag() != ColliderBase::TAG::STAGE) continue;
+
+			// 派生クラスへキャスト
+			const ColliderModel* colliderModel =
+				dynamic_cast<const ColliderModel*>(hitCol);
+
+			if (colliderModel == nullptr) continue;
+
+			// 衝突したポリゴンの上に押し戻す
+			bool isHit = colliderLine_->PushBackUp(
+				colliderModel,
+				transform_,
+				2.0f,
+				true,
+				false);
+
+			// ジャンプ判定
+			if (isHit)
+			{
+				isJump_ = false;
+			}
+		}
+
+		if (!isJump_)
+		{
+			// ジャンプリセット
+			jumpPow_ = AsoUtility::VECTOR_ZERO;
+			// ジャンプの入力受付時間をリセット
+			stepJump_ = 0.0f;
+		}
+
 	}
 
-	// 線分コライダ
-	int lineType = static_cast<int>(COLLIDER_TYPE::LINE);
-
-	// 線分コライダが無ければ処理を抜ける
-	if (ownColliders_.count(lineType) == 0) return;
-
-	// 線分コライダ情報
-	ColliderLine* colliderLine_ =
-		dynamic_cast<ColliderLine*>(ownColliders_.at(lineType));
-
-	if (colliderLine_ == nullptr) return;
-
-	// 登録されている衝突物を全てチェック
-	for (const auto& hitCol : hitColliders_)
+	void CharactorBase::CollisionCapsule(void)
 	{
+		// カプセルコライダ
+		int capsuleType = static_cast<int>(COLLIDER_TYPE::CAPSULE);
 
-		// ステージ以外は処理を飛ばす
-		if (hitCol->GetTag() != ColliderBase::TAG::STAGE) continue;
+		// カプセルコライダが無ければ処理を抜ける
+		if (ownColliders_.count(capsuleType) == 0) return;
 
-		// 派生クラスへキャスト
-		const ColliderModel* colliderModel =
-			dynamic_cast<const ColliderModel*>(hitCol);
+		// カプセルコライダ情報
+		ColliderCapsule* colliderCapsule =
+			dynamic_cast<ColliderCapsule*>(ownColliders_.at(capsuleType));
+		if (colliderCapsule == nullptr) return;
 
-		if (colliderModel == nullptr) continue;
-
-		// 衝突したポリゴンの上に押し戻す
-		bool isHit = colliderLine_->PushBackUp(
-			colliderModel,
-			transform_,
-			2.0f,
-			true,
-			false);
-
-		// ジャンプ判定
-		if (isHit)
+		// 登録されている衝突物を全てチェック
+		for (const auto& hitCol : hitColliders_)
 		{
-			isJump_ = false;
+		
+			// ステージは除外
+			if (hitCol->GetTag() == ColliderBase::TAG::STAGE) continue;
+		
+			// モデル以外は処理を飛ばす
+			if (hitCol->GetShape() != ColliderBase::SHAPE::MODEL) continue;
+
+			// 派生クラスへキャスト
+			const ColliderModel* colliderModel =
+				dynamic_cast<const ColliderModel*>(hitCol);
+
+			if (colliderModel == nullptr) continue;
+
+			// 指定された回数と距離で三角形の法線方向に押し戻す
+			colliderCapsule->PushBackAlongNormal(
+				colliderModel,
+				transform_,
+				CNT_TRY_COLLISION,
+				COLLISION_BACK_DIS,
+				true,
+				false
+				);
 		}
 	}
-
-	if (!isJump_)
-	{
-		// ジャンプリセット
-		jumpPow_ = AsoUtility::VECTOR_ZERO;
-		// ジャンプの入力受付時間をリセット
-		stepJump_ = 0.0f;
-	}
-
-}
-
-void CharactorBase::CollisionCapsule(void)
-{
-	// カプセルコライダ
-	int capsuleType = static_cast<int>(COLLIDER_TYPE::CAPSULE);
-
-	// カプセルコライダが無ければ処理を抜ける
-	if (ownColliders_.count(capsuleType) == 0) return;
-
-	// カプセルコライダ情報
-	ColliderCapsule* colliderCapsule =
-		dynamic_cast<ColliderCapsule*>(ownColliders_.at(capsuleType));
-	if (colliderCapsule == nullptr) return;
-
-	// 登録されている衝突物を全てチェック
-	for (const auto& hitCol : hitColliders_)
-	{
-		// モデル以外は処理を飛ばす
-		if (hitCol->GetShape() != ColliderBase::SHAPE::MODEL) continue;
-
-		// 派生クラスへキャスト
-		const ColliderModel* colliderModel =
-			dynamic_cast<const ColliderModel*>(hitCol);
-
-		if (colliderModel == nullptr) continue;
-
-		// 指定された回数と距離で三角形の法線方向に押し戻す
-		colliderCapsule->PushBackAlongNormal(
-			colliderModel,
-			transform_,
-			CNT_TRY_COLLISION,
-			COLLISION_BACK_DIS,
-			true,
-			false
-			);
-	}
-}
 
 void CharactorBase::DrawShadow(void)
 {

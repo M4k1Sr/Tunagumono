@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include <vector>
 #include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/Camera.h"
@@ -44,6 +45,19 @@ void GameScene::Init(void)
 	const ColliderBase* stageCollider =
 		stage_->GetOwnCollider(static_cast<int>(Stage::COLLIDER_TYPE::MODEL));
 	player_->AddHitCollider(stageCollider);
+
+	// オブジェクト(全て)のコライダーを登録
+	const std::vector<ObjectBase*>& objects = objMng_->GetObjects();
+	for (const auto& obj : objects)
+	{
+		// オブジェクトがモデルコライダーを持っていれば登録
+		const ColliderBase* objectCollider = 
+		obj->GetOwnCollider(static_cast<int>(ObjectBase::COLLIDER_TYPE::MODEL));
+		if (objectCollider != nullptr)
+		{
+			player_->AddHitCollider(objectCollider);
+		}
+	}
 
 	// ステージモデルのコライダーをオブジェクトに登録
 	objMng_->AddHitCollider(stageCollider);

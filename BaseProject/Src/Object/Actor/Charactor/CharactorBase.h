@@ -11,6 +11,7 @@ public:
 	{
 		LINE,
 		CAPSULE,
+		MODEL,
 		MAX,
 	};
 
