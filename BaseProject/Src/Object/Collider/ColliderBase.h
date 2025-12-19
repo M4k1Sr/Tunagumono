@@ -1,5 +1,6 @@
 #pragma once
 #include <DxLib.h>
+#include "../../Object/Actor/Charactor/Object/ObjectBase.h"
 class Transform;
 
 class ColliderBase
@@ -22,6 +23,7 @@ public:
 		STAGE,
 		PLAYER,
 		BOX,
+		TILE,
 		CAMERA,
 	};
 

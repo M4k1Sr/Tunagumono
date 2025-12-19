@@ -26,13 +26,13 @@ void SkyDome::Update(void)
 	switch (state_)
 	{
 	case SkyDome::STATE::NONE:
-		UpdateStateNone();
+		UpdateNone();
 		break;
 	case SkyDome::STATE::STAY:
-		UpdateStateStay();
+		UpdateStay();
 		break;
 	case SkyDome::STATE::FOLLOW:
-		UpdateStateFollow();
+		UpdateFollow();
 		break;
 	}
 
@@ -124,11 +124,11 @@ void SkyDome::ChangeStateFollow(void)
 	transform_.Update();
 }
 
-void SkyDome::UpdateStateNone(void)
+void SkyDome::UpdateNone(void)
 {
 }
 
-void SkyDome::UpdateStateStay(void)
+void SkyDome::UpdateStay(void)
 {
 	Quaternion rot = Quaternion::AngleAxis(
 		AsoUtility::Deg2RadF(0.1f), AsoUtility::AXIS_Y);
@@ -136,7 +136,7 @@ void SkyDome::UpdateStateStay(void)
 	transform_.Update();
 }
 
-void SkyDome::UpdateStateFollow(void)
+void SkyDome::UpdateFollow(void)
 {
 	// YŽ²‰ñ“]
 	Quaternion rot = Quaternion::AngleAxis(

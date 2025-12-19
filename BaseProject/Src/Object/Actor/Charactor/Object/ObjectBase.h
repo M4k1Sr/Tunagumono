@@ -59,4 +59,7 @@ protected:
 	// í•Ê
 	TYPE type_;
 
+	// XVŒn
+	virtual void UpdateProcessPost(void) override {}
+
 };

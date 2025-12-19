@@ -52,6 +52,7 @@ private:
 	// プレイヤー
 	Transform player_;
 
+
 	// プレイヤー座標
 	static constexpr VECTOR PLAYER_POS = { 0.0f, 0.0f, 0.0f };
 	// プレイヤースケール

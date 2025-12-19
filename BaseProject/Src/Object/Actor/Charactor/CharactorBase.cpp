@@ -5,6 +5,8 @@
 #include "../../../Object/Collider/ColliderLine.h"
 #include "../../../Object/Collider/ColliderModel.h"
 #include "../../../Object/Collider/ColliderCapsule.h"
+#include "../../../Object/Actor/Charactor/Object/ObjectBase.h"
+#include "../../../Object/Actor/Charactor/Object/ObjectTile.h"
 #include "../../../Utility/AsoUtility.h"
 #include "../../../Application.h"
 #include "CharactorBase.h"
@@ -157,7 +159,8 @@ void CharactorBase::Collision(void)
 
 			// ステージ以外は処理を飛ばす
 			if (hitCol->GetTag() != ColliderBase::TAG::STAGE 
-				&& hitCol->GetTag() != ColliderBase::TAG::BOX) continue;
+				&& hitCol->GetTag() != ColliderBase::TAG::BOX
+				&& hitCol->GetTag() != ColliderBase::TAG::TILE) continue;
 
 			// 派生クラスへキャスト
 			const ColliderModel* colliderModel =
@@ -177,6 +180,7 @@ void CharactorBase::Collision(void)
 			if (isHit)
 			{
 				isJump_ = false;
+
 			}
 		}
 
@@ -186,6 +190,7 @@ void CharactorBase::Collision(void)
 			jumpPow_ = AsoUtility::VECTOR_ZERO;
 			// ジャンプの入力受付時間をリセット
 			stepJump_ = 0.0f;
+
 		}
 
 	}

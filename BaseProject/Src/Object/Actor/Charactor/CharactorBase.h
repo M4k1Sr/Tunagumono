@@ -1,6 +1,7 @@
 #pragma once
 #include "../ActorBase.h"
 class AnimationController;
+class ObjectTile;
 
 class CharactorBase : public ActorBase
 {
@@ -93,5 +94,7 @@ protected:
 
 private:
 
+	// 床オブジェクト
+	ObjectTile* objTile_;
 
 };

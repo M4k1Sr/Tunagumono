@@ -7,6 +7,7 @@
 #include "../../../Manager/ResourceManager.h"
 #include "../../../Manager/Resource.h"
 #include "../../../Object/Common/AnimationController.h"
+#include "../../../Object/Actor/Charactor/Object/ObjectTile.h"
 #include "../../Collider/ColliderLine.h"
 #include "../../Collider/ColliderCapsule.h"
 #include "../../../Application.h"

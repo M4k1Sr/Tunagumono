@@ -1,9 +1,11 @@
+#include "../../../../Utility/AsoUtility.h"
 #include "ObjectBase.h"
 
 ObjectBase::ObjectBase(const ObjectBase::ObjectData& data)
 	:
 	CharactorBase(),
-	type_(data.type)
+	type_(data.type),
+	stateBase_(0)
 {
 	// ‰ŠúÀ•W‚Ìİ’è
 	transform_.pos = data.defaultPos;
@@ -22,3 +24,4 @@ void ObjectBase::ChangeState(int state)
 	stateChanges_[stateBase_]();
 
 }
+

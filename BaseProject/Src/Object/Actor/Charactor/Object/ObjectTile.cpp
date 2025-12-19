@@ -49,13 +49,13 @@ void ObjectTile::InitCollider(void)
 
 	// 主に地面との衝突で使用する線分コライダ
 	ColliderLine* colLine = new ColliderLine(
-		ColliderBase::TAG::BOX, &transform_,
+		ColliderBase::TAG::TILE, &transform_,
 		COL_LINE_START_LOCAL_POS, COL_LINE_END_LOCAL_POS);
 	ownColliders_.emplace(static_cast<int>(COLLIDER_TYPE::LINE), colLine);
 
 	// モデルとの衝突で使用するモデルコライダー
 	ColliderModel* colModel = new ColliderModel(
-		ColliderBase::TAG::BOX,
+		ColliderBase::TAG::TILE,
 		&transform_);
 	ownColliders_.emplace(static_cast<int>(COLLIDER_TYPE::MODEL), colModel);
 }
@@ -68,14 +68,152 @@ void ObjectTile::InitAnimation(void)
 }
 
 void ObjectTile::InitPost(void)
-{
+{	
+	
+	// 初期遷移状態初期処理登録
+	stateChanges_.emplace(static_cast<int>(STATE::NONE),
+		std::bind(&ObjectTile::ChangeStateNone, this));
+
+	stateChanges_.emplace(static_cast<int>(STATE::STOP),
+		std::bind(&ObjectTile::ChangeStateStop, this));
+
+	stateChanges_.emplace(static_cast<int>(STATE::UP),
+		std::bind(&ObjectTile::ChangeStateUp, this));
+
+	stateChanges_.emplace(static_cast<int>(STATE::DOWN),
+		std::bind(&ObjectTile::ChangeStateDown, this));
+
+	stateChanges_.emplace(static_cast<int>(STATE::END),
+		std::bind(&ObjectTile::ChangeStateEnd, this));
+
+	// 初期状態設定
+	ChangeState(STATE::UP);
+
 }
 
 void ObjectTile::UpdateProcess(void)
 {
+
+	// 状態別更新
+	stateUpdate_();
+
+	
 }
 
 void ObjectTile::UpdateProcessPost(void)
 {
+	transform_.Update();
+
+	ObjectBase::UpdateProcessPost();
 }
 
+void ObjectTile::ChangeState(STATE state)
+{
+
+	state_ = state;
+
+	// 各状態の初期状態設定
+	ObjectBase::ChangeState(static_cast<int>(state_));
+
+}
+
+void ObjectTile::ChangeStateNone(void)
+{
+	stateUpdate_ = std::bind(&ObjectTile::UpdateNone, this);
+
+}
+
+void ObjectTile::ChangeStateStop(void)
+{
+	stateUpdate_ = std::bind(&ObjectTile::UpdateStop, this);
+
+}
+
+void ObjectTile::ChangeStateUp(void)
+{
+	
+	// 経過時間
+	moveTimer_ = 0.0f;
+	// 移動時間
+	moveTime_ = MOVE_TIME;
+
+	// 初期位置
+	startPos_ = transform_.pos;
+	// 移動する場所
+	movePlacePos_ = VAdd(startPos_, VScale(AsoUtility::DIR_U, MOVE_UP_TILE));
+
+	stateUpdate_ = std::bind(&ObjectTile::UpdateUp, this);
+
+}
+
+void ObjectTile::ChangeStateDown(void)
+{
+	// 経過時間
+	moveTimer_ = 0.0f;
+	// 移動時間
+	moveTime_ = MOVE_TIME;
+
+	// 初期位置
+	startPos_ = transform_.pos;
+	// 移動する場所
+	movePlacePos_ = VAdd(startPos_, VScale(AsoUtility::DIR_D, MOVE_UP_TILE));
+
+	stateUpdate_ = std::bind(&ObjectTile::UpdateDown, this);
+}
+
+void ObjectTile::ChangeStateEnd(void)
+{
+	stateUpdate_ = std::bind(&ObjectTile::UpdateEnd, this);
+}
+
+void ObjectTile::UpdateNone(void)
+{
+}
+
+void ObjectTile::UpdateStop(void)
+{
+}
+
+void ObjectTile::UpdateUp(void)
+{
+	UpdateProcessFloorMove();
+	if (moveTimer_ >= moveTime_)
+	{
+		ChangeState(STATE::DOWN);
+	}
+
+}
+
+void ObjectTile::UpdateDown(void)
+{
+	UpdateProcessFloorMove();
+	if (moveTimer_ >= moveTime_)
+	{
+		ChangeState(STATE::UP);
+	}
+
+}
+
+void ObjectTile::UpdateEnd(void)
+{
+}
+
+void ObjectTile::UpdateProcessFloorMove(void)
+{
+	// 経過時間取得(デルタタイム)
+	moveTimer_ += SceneManager::GetInstance().GetDeltaTime();
+	// 線形補間用ステップ計算
+	float t = moveTimer_ / moveTime_;
+
+	// 経過時間により移動完了
+	if (moveTimer_ > moveTime_)
+	{
+		transform_.pos = movePlacePos_;
+		return;
+	}
+
+	// 線形補間で移動(これでオーバーせずにピタッと止まる)
+	transform_.pos = AsoUtility::Lerp(startPos_, movePlacePos_, t);
+	transform_.Update();
+
+}

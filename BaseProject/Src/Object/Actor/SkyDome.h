@@ -62,9 +62,9 @@ private:
 	void ChangeStateStay(void);
 	void ChangeStateFollow(void);
 
-	void UpdateStateNone(void);
-	void UpdateStateStay(void);
-	void UpdateStateFollow(void);
+	void UpdateNone(void);
+	void UpdateStay(void);
+	void UpdateFollow(void);
 
 
 
