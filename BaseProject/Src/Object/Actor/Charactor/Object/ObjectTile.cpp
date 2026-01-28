@@ -15,7 +15,9 @@
 
 ObjectTile::ObjectTile(const ObjectBase::ObjectData& data)
 	:
-	ObjectBase(data)
+	ObjectBase(data),
+	prevPos_(AsoUtility::VECTOR_ZERO),
+	velocity_(AsoUtility::VECTOR_ZERO)
 {
 }
 
@@ -70,6 +72,11 @@ void ObjectTile::InitAnimation(void)
 void ObjectTile::InitPost(void)
 {	
 	
+	// Šî’êƒNƒ‰ƒX‚Ì‰Šú‰»Œãˆ—
+	prevPos_ = transform_.pos;
+	velocity_ = AsoUtility::VECTOR_ZERO;
+
+
 	// ‰Šú‘JˆÚó‘Ô‰Šúˆ—“o˜^
 	stateChanges_.emplace(static_cast<int>(STATE::NONE),
 		std::bind(&ObjectTile::ChangeStateNone, this));
@@ -176,6 +183,7 @@ void ObjectTile::UpdateStop(void)
 
 void ObjectTile::UpdateUp(void)
 {
+
 	UpdateProcessFloorMove();
 	if (moveTimer_ >= moveTime_)
 	{

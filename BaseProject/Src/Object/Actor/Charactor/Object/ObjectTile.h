@@ -24,6 +24,9 @@ public:
 	// デストラクタ
 	~ObjectTile(void) override;
 
+	// 動く床の速度取得
+	VECTOR GetVelocity(void) const { return velocity_; }
+
 protected:
 
 	// リソースロード
@@ -79,6 +82,12 @@ private:
 
 	// 移動する場所
 	VECTOR movePlacePos_;
+
+	// 前フレームの位置
+	VECTOR prevPos_;    
+
+	// 移動速度
+	VECTOR velocity_;  
 
 	// 移動時間
 	float moveTime_;
